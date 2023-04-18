@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:receipt_app/src/data/models/recipes/recipe_difficulty_model.dart';
@@ -23,6 +24,8 @@ class CreateRecipeController extends GetxController {
   List<Map<String, dynamic>> listOfSteps = [];
   bool loadingCategories = true;
   bool loadingDifficulty = true;
+  bool loadingPage = false;
+  bool invalidUrl = true;
   int selectedCategoryIndex = -1;
   int selectedDifficultyIndex = -1;
   String? selectedCategoryId;
@@ -75,6 +78,7 @@ class CreateRecipeController extends GetxController {
     });
   }
 
+  /// get all recipe difficulty
   getRecipeDifficulty() async {
     await _dataGetService.getRecipeDifficulty().then((res) {
       if (res['success'] == true) {
@@ -96,7 +100,9 @@ class CreateRecipeController extends GetxController {
     update(['select_recipe_img']);
   }
 
-  onTapTypeFilter(int index) async {
+  ///* selected - unselect data *///
+  /// category
+  onTapCategory(int index) async {
     selectedCategoryIndex = index;
     if (index != -1) {
       selectedCategoryId = recipeCategoryList[selectedCategoryIndex].id;
@@ -106,6 +112,7 @@ class CreateRecipeController extends GetxController {
     update(['recipes_category']);
   }
 
+  ///difficulty
   onTapDifficultyFilter(int index) async {
     selectedDifficultyIndex = index;
     if (index != -1) {
@@ -161,5 +168,31 @@ class CreateRecipeController extends GetxController {
     return Get.bottomSheet(
       const AddDataTiListSheet(isIngredient: false, title: 'paso'),
     ).whenComplete(() {});
+  }
+
+  /// paste copy content
+  pasteUrlFromClipboard() async {
+    final ClipboardData? clipboardData =
+        await Clipboard.getData(Clipboard.kTextPlain);
+
+    /// validate if copy url is a valid youtube url
+    String pattern =
+        r'((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?';
+    RegExp regex = RegExp(pattern);
+    String? data = clipboardData?.text;
+
+    if (regex.hasMatch(data ?? '')) {
+      recipeUrlCtrl.text = data ?? '';
+      invalidUrl = false;
+    } else {
+      invalidUrl = true;
+    }
+    update(['add_url']);
+  }
+
+  /// clear url field
+  clearUrlField() {
+    recipeUrlCtrl.clear();
+    update(['add_url']);
   }
 }
