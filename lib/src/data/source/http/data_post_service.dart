@@ -60,6 +60,7 @@ class DataPostService {
     }
   }
 
+  /// create comment
   Future<Map<String, dynamic>> createRecipeComment(
       {required String recipeId,
       required List<XFile> photo,
@@ -92,6 +93,61 @@ class DataPostService {
         debugPrint(e.toString());
       }
       return {'success': false, 'message': 'Ocurrio un error al comentar'};
+    }
+  }
+
+  /// create recipe
+  Future<Map<String, dynamic>> createRecipe({
+    required String name,
+    required String difficulty,
+    required String portions,
+    required String preparationTime,
+    required List<XFile> image,
+    required String videoUri,
+    required String type,
+    required List<String> ingredients,
+    required List<Map<String, dynamic>> steps,
+  }) async {
+    try {
+      /// validate if device has internet connection
+      if (!await AppUtils.isInternet(showSnackbar: false)) throw 'internet';
+
+      List<MultipartFile> img = image
+          .map((path) => MultipartFile.fromFileSync(path.path,
+              filename: path.name,
+              contentType: MediaType('image', path.name.split('.')[1])))
+          .toList();
+
+      FormData formData = FormData.fromMap({
+        'name': name,
+        'difficulty': difficulty,
+        'portions': portions,
+        'preparationTime': preparationTime,
+        'image': img,
+        'videoUri': videoUri,
+        'type': type,
+        'ingredients': ingredients,
+        'steps': steps
+      });
+
+      final Response res =
+          await HttpService().dio.post('api/recipe/create', data: formData);
+      final Map<String, dynamic> decodeRes = res.data;
+
+      if (decodeRes['success'] == true) {
+        return {'success': true, 'message': decodeRes['message']};
+      } else {
+        return {'success': false, 'message': decodeRes['message']};
+      }
+    } catch (e) {
+      if (e.toString() != 'internet') {
+        debugPrint(e.toString());
+      }
+      return {
+        'success': false,
+        'message': 'Ocurrio un error al crear la '
+            'receta'
+      };
     }
   }
 }

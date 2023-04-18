@@ -2,11 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:receipt_app/src/core/utils/app_utils.dart';
 import 'package:receipt_app/src/data/models/recipes/recipe_difficulty_model.dart';
 import 'package:receipt_app/src/data/models/recipes/recipe_type_model.dart';
 import 'package:receipt_app/src/data/source/http/data_get_service.dart';
 import 'package:receipt_app/src/data/source/http/data_post_service.dart';
 import 'package:receipt_app/src/presentation/pages/create_recipe/sheets/add_data_to_list_sheet.dart';
+import 'package:receipt_app/src/presentation/pages/main/sub_pages/home/home_controller.dart';
 
 class CreateRecipeController extends GetxController {
   static CreateRecipeController get inst => Get.find<CreateRecipeController>();
@@ -90,6 +92,58 @@ class CreateRecipeController extends GetxController {
       loadingDifficulty = false;
       update(['recipes_difficulty']);
     });
+  }
+
+  /// create recipe
+  createRecipe() async {
+    /// validate if all fields are not empty
+    if (recipeNameCtrl.text.trim().isNotEmpty &&
+        selectedImg.isNotEmpty &&
+        recipeUrlCtrl.text.trim().isNotEmpty &&
+        recipeTimeCtrl.text.trim().isNotEmpty &&
+        recipePortionCtrl.text.trim().isNotEmpty &&
+        selectedCategoryId != null &&
+        selectedDifficultyId != null &&
+        listOfIngredients.isNotEmpty &&
+        listOfSteps.isNotEmpty) {
+      loadingPage = true;
+      update(['loading']);
+
+      /// post query
+      await _dataPostService
+          .createRecipe(
+              name: recipeNameCtrl.text.trim(),
+              difficulty: selectedDifficultyId ?? '',
+              portions: recipePortionCtrl.text.trim(),
+              preparationTime: recipeTimeCtrl.text.trim(),
+              image: selectedImg,
+              videoUri: recipeUrlCtrl.text.trim(),
+              type: selectedCategoryId ?? '',
+              ingredients: listOfIngredients,
+              steps: listOfSteps)
+          .then((res) async {
+        /// fetch all recipes
+        await HomeController.inst.getRecipes();
+
+        /// close page
+        Get.back();
+
+        /// show message
+        AppUtils.snackBar(
+            title: 'Crear receta',
+            menssage: 'Receta creada correctamente',
+            duration: 5);
+      }).whenComplete(() {
+        loadingPage = false;
+        update(['loading']);
+      });
+    } else {
+      AppUtils.snackBar(
+          title: 'Crear receta',
+          menssage: 'Debes llenar todos '
+              'los campos',
+          duration: 5);
+    }
   }
 
   ///* Validation Methods *///

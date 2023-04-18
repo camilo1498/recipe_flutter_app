@@ -152,8 +152,7 @@ class CreateRecipePage extends StatelessWidget {
                                               child: FormWidget(
                                                 maxLines: 5,
                                                 isOutline: false,
-                                                controller:
-                                                    ctrl.recipePortionCtrl,
+                                                controller: ctrl.recipeTimeCtrl,
                                                 hint: '0',
                                                 bordeColor: Colors.transparent,
                                                 keyboardType:
@@ -200,7 +199,8 @@ class CreateRecipePage extends StatelessWidget {
                                               child: FormWidget(
                                                 maxLines: 5,
                                                 isOutline: false,
-                                                controller: ctrl.recipeTimeCtrl,
+                                                controller:
+                                                    ctrl.recipePortionCtrl,
                                                 hint: '0',
                                                 bordeColor: Colors.transparent,
                                                 keyboardType:
@@ -316,6 +316,7 @@ class CreateRecipePage extends StatelessWidget {
 
                             /// create recipe button
                             AnimatedOnTapWidget(
+                              onTap: ctrl.createRecipe,
                               child: Container(
                                 height: 120.h,
                                 width: context.width,
