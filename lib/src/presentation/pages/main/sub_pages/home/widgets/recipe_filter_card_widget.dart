@@ -3,18 +3,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:receipt_app/src/core/global/app_colors_global.dart';
 import 'package:receipt_app/src/core/global/app_global_decoration.dart';
 import 'package:receipt_app/src/core/global/global_app_font.dart';
-import 'package:receipt_app/src/data/models/recipes/recipe_type_model.dart';
 import 'package:receipt_app/src/presentation/widgets/animations/animated_onTap_widget.dart';
 import 'package:receipt_app/src/presentation/widgets/text/text_widget.dart';
 
 class RecipeFilterCardWidget extends StatelessWidget {
-  final RecipeTypeModel filter;
+  final String name;
   final int index;
   final int selectedIndex;
   final Function(int index) onSelected;
   const RecipeFilterCardWidget(
       {Key? key,
-      required this.filter,
+      required this.name,
       required this.index,
       required this.selectedIndex,
       required this.onSelected})
@@ -35,7 +34,7 @@ class RecipeFilterCardWidget extends StatelessWidget {
                   : AppColor.background,
               border: Border.all(color: AppColor.blackHardness)),
           child: TextWidget(
-            filter.name,
+            name,
             font: AppFont.bodyBold,
             color: selectedIndex == index
                 ? AppColor.whiteSnow

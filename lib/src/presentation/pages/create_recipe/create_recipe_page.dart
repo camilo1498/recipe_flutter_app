@@ -221,6 +221,40 @@ class CreateRecipePage extends StatelessWidget {
 
                             /// title
                             TextWidget(
+                              'Selecciona la dificultad de la receta',
+                              font: AppFont.captionBold,
+                              color: AppColor.blackHardness,
+                            ),
+                            10.verticalSpace,
+
+                            /// Difficulty
+                            GetBuilder<CreateRecipeController>(
+                              id: 'recipes_difficulty',
+                              builder: (ctrl) => SingleChildScrollView(
+                                physics: const BouncingScrollPhysics(),
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  children: [
+                                    ...ctrl.recipeDifficultyList.map((filter) {
+                                      final int index = ctrl
+                                          .recipeDifficultyList
+                                          .indexOf(filter);
+                                      return RecipeFilterCardWidget(
+                                        onSelected: ctrl.onTapDifficultyFilter,
+                                        name: filter.name,
+                                        index: index,
+                                        selectedIndex:
+                                            ctrl.selectedDifficultyIndex,
+                                      );
+                                    })
+                                  ],
+                                ),
+                              ),
+                            ),
+                            30.verticalSpace,
+
+                            /// title
+                            TextWidget(
                               'Selecciona la categoria de la receta',
                               font: AppFont.captionBold,
                               color: AppColor.blackHardness,
@@ -240,7 +274,7 @@ class CreateRecipePage extends StatelessWidget {
                                           .indexOf(filter);
                                       return RecipeFilterCardWidget(
                                         onSelected: ctrl.onTapTypeFilter,
-                                        filter: filter,
+                                        name: filter.name,
                                         index: index,
                                         selectedIndex:
                                             ctrl.selectedCategoryIndex,

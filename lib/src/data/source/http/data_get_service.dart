@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:receipt_app/src/core/global/global_controller.dart';
 import 'package:receipt_app/src/core/utils/app_utils.dart';
 import 'package:receipt_app/src/data/models/recipes/recipe_comment_model.dart';
+import 'package:receipt_app/src/data/models/recipes/recipe_difficulty_model.dart';
 import 'package:receipt_app/src/data/models/recipes/recipe_model.dart';
 import 'package:receipt_app/src/data/models/recipes/recipe_type_model.dart';
 import 'package:receipt_app/src/data/models/user/user_model.dart';
@@ -228,6 +229,40 @@ class DataGetService {
         'success': false,
         'message': 'Error al obtener la receta',
         'data': []
+      };
+    }
+  }
+
+  /// fetch all recipe type
+  Future<Map<String, dynamic>> getRecipeDifficulty() async {
+    try {
+      /// validate if device has internet connection
+      if (!await AppUtils.isInternet()) throw 'internet';
+
+      /// fetch
+      final Response res =
+          await HttpService().dio.get('api/recipe/getAllDifficulty');
+      Map<String, dynamic> decodeResp = res.data;
+
+      /// validate response
+      if (decodeResp['success'] == true) {
+        return {
+          'success': true,
+          'message': decodeResp['message'],
+          'data': RecipeDifficultyResponseModel.fromJson(decodeResp).data
+        };
+      } else {
+        debugPrint(decodeResp.toString());
+        return {'success': false, 'message': decodeResp['message'], 'data': {}};
+      }
+    } catch (e) {
+      if (e.toString() != 'internet') {
+        debugPrint(e.toString());
+      }
+      return {
+        'success': false,
+        'message': 'Error al obtener la dificultad',
+        'data': {}
       };
     }
   }

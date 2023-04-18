@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:receipt_app/src/core/global/app_colors_global.dart';
 import 'package:receipt_app/src/core/global/app_global_decoration.dart';
 import 'package:receipt_app/src/core/global/global_app_font.dart';
-import 'package:receipt_app/src/data/models/recipes/recipe_type_model.dart';
 import 'package:receipt_app/src/presentation/pages/main/sub_pages/home/home_controller.dart';
 import 'package:receipt_app/src/presentation/pages/main/sub_pages/home/widgets/recipe_card_widget.dart';
 import 'package:receipt_app/src/presentation/pages/main/sub_pages/home/widgets/recipe_filter_card_widget.dart';
@@ -68,18 +67,13 @@ class HomePage extends StatelessWidget {
                           index: -1,
                           onSelected: ctrl.onTapTypeFilter,
                           selectedIndex: ctrl.selectedTypeIndex,
-                          filter: RecipeTypeModel(
-                            id: '',
-                            name: 'todos',
-                            createdAt: DateTime.now(),
-                            updatedAt: DateTime.now(),
-                          ),
+                          name: 'todos',
                         ),
                         ...ctrl.recipeTypeList.map((filter) {
                           final int index = ctrl.recipeTypeList.indexOf(filter);
                           return RecipeFilterCardWidget(
                             index: index,
-                            filter: filter,
+                            name: filter.name,
                             onSelected: ctrl.onTapTypeFilter,
                             selectedIndex: ctrl.selectedTypeIndex,
                           );
