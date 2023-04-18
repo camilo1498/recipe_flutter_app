@@ -1,19 +1,18 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:receipt_app/src/core/extensions/datetime_extension.dart';
 import 'package:receipt_app/src/core/global/app_colors_global.dart';
 import 'package:receipt_app/src/core/global/app_global_decoration.dart';
-import 'package:receipt_app/src/core/global/app_icons_global.dart';
 import 'package:receipt_app/src/core/global/global_app_font.dart';
 import 'package:receipt_app/src/presentation/pages/create_recipe/create_recipe_controller.dart';
+import 'package:receipt_app/src/presentation/pages/create_recipe/widgets/add_ingredientes_widget.dart';
+import 'package:receipt_app/src/presentation/pages/create_recipe/widgets/add_recipe_images_widget.dart';
+import 'package:receipt_app/src/presentation/pages/create_recipe/widgets/add_steps_widget.dart';
 import 'package:receipt_app/src/presentation/pages/main/sub_pages/home/widgets/recipe_filter_card_widget.dart';
 import 'package:receipt_app/src/presentation/widgets/animations/animated_onTap_widget.dart';
 import 'package:receipt_app/src/presentation/widgets/buttons/global_back_button.dart';
 import 'package:receipt_app/src/presentation/widgets/decoration/textfield_decoration.dart';
-import 'package:receipt_app/src/presentation/widgets/image_view/gallery_view.dart';
 import 'package:receipt_app/src/presentation/widgets/text/text_widget.dart';
 import 'package:receipt_app/src/presentation/widgets/textfields/form_widget.dart';
 
@@ -70,6 +69,7 @@ class CreateRecipePage extends StatelessWidget {
 
                     Expanded(
                       child: SingleChildScrollView(
+                        controller: ctrl.scrollController,
                         physics: const BouncingScrollPhysics(),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -111,86 +111,7 @@ class CreateRecipePage extends StatelessWidget {
                             10.verticalSpace,
 
                             /// image picker
-                            GetBuilder<CreateRecipeController>(
-                                id: 'select_recipe_img',
-                                builder: (ctrl) => Row(
-                                      children: [
-                                        /// add image button
-                                        AnimatedOnTapWidget(
-                                          onTap: ctrl.openGalleryPicker,
-                                          child: Container(
-                                            width: 130.w,
-                                            height: 130.w,
-                                            alignment: Alignment.center,
-                                            decoration: BoxDecoration(
-                                              color: AppColor.blackHardness10,
-                                              boxShadow: AppGlobalDecoration
-                                                  .globalShadow,
-                                              borderRadius: AppGlobalDecoration
-                                                  .globalRadius,
-                                            ),
-                                            child: const Icon(
-                                              Icons.add,
-                                              color: AppColor.blackHardness75,
-                                            ),
-                                          ),
-                                        ),
-                                        20.horizontalSpace,
-
-                                        /// pick images
-                                        Expanded(
-                                          child: Row(
-                                            children: [
-                                              /// selected images
-                                              if (ctrl.selectedImg.isNotEmpty)
-                                                GalleryView(
-                                                  imageFileList: ctrl
-                                                      .selectedImg
-                                                      .map((e) => File(e.path))
-                                                      .toList(),
-                                                  imageUrlList: const [],
-
-                                                  /// here only use url nor file
-                                                  width: 130.w,
-                                                  height: 130.w,
-                                                  isNetworkImg: false,
-                                                  heroTag:
-                                                      'create_comment_image',
-                                                )
-
-                                              /// empty selected images title
-                                              else
-                                                Center(
-                                                  child: TextWidget(
-                                                    'No se han seleccionado imagenes',
-                                                    font: AppFont.caption,
-                                                    color: AppColor
-                                                        .blackHardness50,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                  ),
-                                                )
-                                            ],
-                                          ),
-                                        ),
-                                        20.horizontalSpace,
-
-                                        /// clear selected images button (icon)
-                                        if (ctrl.selectedImg.isNotEmpty)
-                                          AnimatedOnTapWidget(
-                                            onTap: ctrl.deleteSelectedImg,
-                                            child: SizedBox(
-                                              width: 80.w,
-                                              height: 80.w,
-                                              child: const Icon(
-                                                AppIcon.delete,
-                                                size: 30,
-                                                color: AppColor.energy,
-                                              ),
-                                            ),
-                                          )
-                                      ],
-                                    )),
+                            const AddRecipeImagesWidget(),
                             30.verticalSpace,
 
                             /// title
@@ -342,6 +263,51 @@ class CreateRecipePage extends StatelessWidget {
                               ),
                             ),
                             30.verticalSpace,
+
+                            /// title
+                            TextWidget(
+                              'Ingredientes',
+                              font: AppFont.captionBold,
+                              color: AppColor.blackHardness,
+                            ),
+                            10.verticalSpace,
+
+                            /// create comment button
+                            const AddIngredientsWidget(),
+                            30.verticalSpace,
+
+                            /// title
+                            TextWidget(
+                              'Pasos',
+                              font: AppFont.captionBold,
+                              color: AppColor.blackHardness,
+                            ),
+                            10.verticalSpace,
+
+                            /// steps list
+                            const AddStepsWidget(),
+                            40.verticalSpace,
+
+                            /// create recipe button
+                            AnimatedOnTapWidget(
+                              child: Container(
+                                height: 120.h,
+                                width: context.width,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    color: AppColor.energy,
+                                    borderRadius:
+                                        AppGlobalDecoration.globalRadius,
+                                    boxShadow:
+                                        AppGlobalDecoration.globalShadow),
+                                child: TextWidget(
+                                  'Crear receta',
+                                  font: AppFont.bodyBold,
+                                  color: AppColor.whiteSnow,
+                                ),
+                              ),
+                            ),
+                            40.verticalSpace
                           ],
                         ),
                       ),
