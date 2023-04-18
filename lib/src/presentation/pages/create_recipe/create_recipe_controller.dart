@@ -26,6 +26,8 @@ class CreateRecipeController extends GetxController {
   /// controllers
   final TextEditingController recipeNameCtrl = TextEditingController();
   final TextEditingController recipeUrlCtrl = TextEditingController();
+  final TextEditingController recipeTimeCtrl = TextEditingController();
+  final TextEditingController recipePortionCtrl = TextEditingController();
 
   @override
   void onInit() async {

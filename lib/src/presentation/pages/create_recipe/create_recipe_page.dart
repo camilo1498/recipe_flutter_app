@@ -221,6 +221,63 @@ class CreateRecipePage extends StatelessWidget {
 
                             /// title
                             TextWidget(
+                              'Ingresa el tiempo de cocción y la cantidad de '
+                              'porciones',
+                              font: AppFont.captionBold,
+                              color: AppColor.blackHardness,
+                            ),
+                            10.verticalSpace,
+
+                            /// text fields
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: TextFieldDecoration(
+                                    child: Row(
+                                      children: [
+                                        /// recipe time
+                                        Expanded(
+                                          child: FormWidget(
+                                            maxLines: 5,
+                                            isOutline: false,
+                                            controller: ctrl.recipePortionCtrl,
+                                            hint: 'Tiempo de cocción',
+                                            bordeColor: Colors.transparent,
+                                            keyboardType: TextInputType.text,
+                                            inputAction: TextInputAction.done,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                20.horizontalSpace,
+                                Expanded(
+                                  child: TextFieldDecoration(
+                                    child: Row(
+                                      children: [
+                                        /// recipe time
+                                        Expanded(
+                                          child: FormWidget(
+                                            maxLines: 5,
+                                            isOutline: false,
+                                            controller: ctrl.recipeTimeCtrl,
+                                            hint: 'Poriciones',
+                                            bordeColor: Colors.transparent,
+                                            keyboardType: TextInputType.text,
+                                            inputAction: TextInputAction.done,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                            30.verticalSpace,
+
+                            /// title
+                            TextWidget(
                               'Selecciona la dificultad de la receta',
                               font: AppFont.captionBold,
                               color: AppColor.blackHardness,
