@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:receipt_app/src/presentation/pages/create_recipe/create_recipe_controller.dart';
+import 'package:receipt_app/src/presentation/pages/create_recipe/create_recipe_page.dart';
 import 'package:receipt_app/src/presentation/pages/login/login_controller.dart';
 import 'package:receipt_app/src/presentation/pages/login/login_page.dart';
 import 'package:receipt_app/src/presentation/pages/main/main_controller.dart';
@@ -51,6 +53,12 @@ class AppPages {
             page: () => const RecipeDetailPage(),
             binding: BindingsBuilder(
               () => Get.lazyPut(() => RecipeDetailController()),
+            )),
+        GetPage(
+            name: AppRoutes.createRecipePage,
+            page: () => const CreateRecipePage(),
+            binding: BindingsBuilder(
+              () => Get.lazyPut(() => CreateRecipeController()),
             )),
       ];
 

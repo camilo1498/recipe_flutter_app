@@ -1,11 +1,12 @@
 ///
 class AppRoutes {
-  static const splashScreenPage = "/splashScreenPage";
-  static const loginPage = "/loginPage";
-  static const registerPage = "/registerPage";
   static const mainPage = "/mainPage";
   static const homePage = '/homePage';
-  static const savedRecipes = '/savedRecipes';
+  static const loginPage = "/loginPage";
   static const userProfile = '/userProfile';
+  static const registerPage = "/registerPage";
+  static const savedRecipes = '/savedRecipes';
+  static const createRecipePage = '/createRecipePage';
+  static const splashScreenPage = "/splashScreenPage";
   static const recipeDetailController = '/recipeDetailController';
 }

@@ -52,7 +52,7 @@ class RecipeModel {
   final int portions;
   final int preparationTime;
   final String videoUri;
-  final int difficulty;
+  final Difficulty difficulty;
   final Type type;
   final List<Step> steps;
   final List<dynamic> comments;
@@ -69,7 +69,7 @@ class RecipeModel {
         portions: json["portions"],
         preparationTime: json["preparationTime"],
         videoUri: json["videoUri"],
-        difficulty: json["difficulty"],
+        difficulty: Difficulty.fromJson(json["difficulty"]),
         type: Type.fromJson(json["type"]),
         steps: List<Step>.from(json["steps"].map((x) => Step.fromJson(x))),
         comments: List<dynamic>.from(json["comments"].map((x) => x)),
@@ -88,7 +88,7 @@ class RecipeModel {
         "portions": portions,
         "preparationTime": preparationTime,
         "videoUri": videoUri,
-        "difficulty": difficulty,
+        "difficulty": difficulty.toJson(),
         "type": type.toJson(),
         "steps": List<dynamic>.from(steps.map((x) => x.toJson())),
         "comments": List<dynamic>.from(comments.map((x) => x)),
@@ -185,6 +185,26 @@ class CreatedBy {
   Map<String, dynamic> toJson() => {
         "name": name,
         "lastname": lastname,
+        "id": id,
+      };
+}
+
+class Difficulty {
+  Difficulty({
+    required this.name,
+    this.id = '',
+  });
+
+  final String name;
+  final String id;
+
+  factory Difficulty.fromJson(Map<String, dynamic> json) => Difficulty(
+        name: json["name"],
+        id: json["id"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "name": name,
         "id": id,
       };
 }

@@ -111,7 +111,7 @@ class Favourite {
   final String name;
   final int portions;
   final int preparationTime;
-  final int difficulty;
+  final Difficulty difficulty;
   final Type type;
   final String id;
 
@@ -120,7 +120,7 @@ class Favourite {
         name: json["name"],
         portions: json["portions"],
         preparationTime: json["preparationTime"],
-        difficulty: json["difficulty"],
+        difficulty: Difficulty.fromJson(json["difficulty"]),
         type: Type.fromJson(json["type"]),
         id: json["id"],
       );
@@ -130,7 +130,7 @@ class Favourite {
         "name": name,
         "portions": portions,
         "preparationTime": preparationTime,
-        "difficulty": difficulty,
+        "difficulty": difficulty.toJson(),
         "type": type,
         "id": id,
       };
@@ -212,5 +212,21 @@ class Role {
   Map<String, dynamic> toJson() => {
         "roleName": roleName,
         "id": id,
+      };
+}
+
+class Difficulty {
+  Difficulty({
+    required this.name,
+  });
+
+  final String name;
+
+  factory Difficulty.fromJson(Map<String, dynamic> json) => Difficulty(
+        name: json["name"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "name": name,
       };
 }

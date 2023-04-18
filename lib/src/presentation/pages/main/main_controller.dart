@@ -17,50 +17,6 @@ class MainController extends GetxController {
   void onInit() async {
     /// request device permissions
     await Permission.manageExternalStorage.request();
-    // await checkPermission();
     super.onInit();
   }
-
-  // Future<bool> checkPermission() async {
-  //   ///For Check permission..
-  //   await Permission.manageExternalStorage.request();
-  //   if (Platform.isAndroid
-  //       ? !await requestPermission(Permission.storage) &&
-  //           !await requestPermission(Permission.manageExternalStorage)
-  //       : !await requestPermission(Permission.storage)) {
-  //     await Get.dialog(CupertinoAlertDialog(
-  //       title: const Text("Photos & Videos permission"),
-  //       content: const Text(
-  //           " Photos & Videos permission should be granted to connect with device, would you like to go to app settings to give Bluetooth & Location permissions?"),
-  //       actions: <Widget>[
-  //         TextButton(
-  //             child: const Text('No thanks'),
-  //             onPressed: () {
-  //               Get.back();
-  //             }),
-  //         TextButton(
-  //             child: const Text('Ok'),
-  //             onPressed: () async {
-  //               Get.back();
-  //               await openAppSettings();
-  //             })
-  //       ],
-  //     ));
-  //     return false;
-  //   } else {
-  //     return true;
-  //   }
-  // }
-  //
-  // Future<bool> requestPermission(Permission permission) async {
-  //   if (await permission.isGranted) {
-  //     return true;
-  //   } else {
-  //     var result = await permission.request();
-  //     if (result == PermissionStatus.granted) {
-  //       return true;
-  //     }
-  //   }
-  //   return false;
-  // }
 }

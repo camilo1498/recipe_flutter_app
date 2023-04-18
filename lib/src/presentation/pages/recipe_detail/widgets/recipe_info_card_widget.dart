@@ -26,11 +26,7 @@ class RecipeInfoCardWidget extends StatelessWidget {
             _infoCard(
                 icon: AppIcon.stats,
                 title: 'Dificultad',
-                subtitle: ctrl.recipeData!.difficulty == 1
-                    ? 'fácil'
-                    : ctrl.recipeData!.difficulty == 2
-                        ? 'Media'
-                        : 'Dificil'),
+                subtitle: ctrl.recipeData!.difficulty.name),
             Container(
               height: 60.h,
               width: 2.w,

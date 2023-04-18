@@ -75,10 +75,14 @@ class HomeController extends GetxController {
     });
   }
 
+  ///* Go to page methods *///
   goToDetailPage({required String recipeId}) =>
       Get.toNamed(AppRoutes.recipeDetailController,
           arguments: {'recipe_id': recipeId, 'come_from_home': true});
 
+  goToCreateRecipePage() => Get.toNamed(AppRoutes.createRecipePage);
+
+  ///* On Tap Methods *///
   onTapTypeFilter(int index) async {
     selectedTypeIndex = index;
     if (index != -1) {

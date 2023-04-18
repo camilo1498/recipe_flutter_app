@@ -65,19 +65,23 @@ class HomePage extends StatelessWidget {
                     child: Row(
                       children: [
                         RecipeFilterCardWidget(
+                          index: -1,
+                          onSelected: ctrl.onTapTypeFilter,
+                          selectedIndex: ctrl.selectedTypeIndex,
                           filter: RecipeTypeModel(
                             id: '',
                             name: 'todos',
                             createdAt: DateTime.now(),
                             updatedAt: DateTime.now(),
                           ),
-                          index: -1,
                         ),
                         ...ctrl.recipeTypeList.map((filter) {
                           final int index = ctrl.recipeTypeList.indexOf(filter);
                           return RecipeFilterCardWidget(
-                            filter: filter,
                             index: index,
+                            filter: filter,
+                            onSelected: ctrl.onTapTypeFilter,
+                            selectedIndex: ctrl.selectedTypeIndex,
                           );
                         })
                       ],
@@ -122,6 +126,7 @@ class HomePage extends StatelessWidget {
           ),
         ),
         floatingActionButton: AnimatedOnTapWidget(
+          onTap: ctrl.goToCreateRecipePage,
           child: Container(
             width: 150.w,
             height: 150.w,

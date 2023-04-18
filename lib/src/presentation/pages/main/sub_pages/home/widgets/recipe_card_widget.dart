@@ -140,8 +140,7 @@ class _RecipeCardWidgetState extends State<RecipeCardWidget> {
                             ),
                             20.horizontalSpace,
                             TextWidget(
-                              'Nivel ${(widget.recipe != null ? widget.recipe!.difficulty : widget.favourite!.difficulty)} de '
-                              'difocultad',
+                              'Dificultad ${(widget.recipe != null ? widget.recipe!.difficulty.name : widget.favourite!.difficulty.name)}',
                               font: AppFont.caption,
                               color: AppColor.blackHardness,
                             ),
