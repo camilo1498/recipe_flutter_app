@@ -1,0 +1,99 @@
+name: receipt_app
+description: A new Flutter project.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.19.5 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations: # Add this line
+    sdk: flutter # Add this line
+
+  dio: ^4.0.6 # Http request
+  gallery_media_picker: ^0.0.82
+  get: ^4.6.5 # state management
+  hive: ^2.2.2 # local storage
+  hive_flutter: ^1.1.0 # local storage
+  flutter_svg: ^2.0.5 # render svg image
+  intl: ^0.17.0 # Add international region
+  photo_view: ^0.14.0 # show full screen images
+  flutter_screenutil: ^5.7.0 # screen responsive
+  permission_handler: ^10.2.0 # Request device permissions
+  http_parser: ^4.0.0 # requiered to send images to backend
+  youtube_player_flutter: ^8.1.2 # Render and reproduce youtube video
+  connectivity_plus: ^3.0.2 # allow to know if the device has internet
+  image_picker: ^0.8.7+3 # Allow to take picture from device gallery
+  cached_network_image: ^3.2.1 # render and save image into cache memory device
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/svg/
+
+  fonts:
+    - family: OpenSans_Bold
+      fonts:
+        - asset: fonts/OpenSans/OpenSans_Bold.ttf
+          style: normal
+    - family: OpenSans_BoldItalic
+      fonts:
+        - asset: fonts/OpenSans/OpenSans_BoldItalic.ttf
+          style: normal
+    - family: OpenSans_ExtraBold
+      fonts:
+        - asset: fonts/OpenSans/OpenSans_ExtraBold.ttf
+          style: normal
+    - family: OpenSans_ExtraBoldItalic
+      fonts:
+        - asset: fonts/OpenSans/OpenSans_ExtraBoldItalic.ttf
+          style: normal
+    - family: OpenSans_Italic
+      fonts:
+        - asset: fonts/OpenSans/OpenSans_Italic.ttf
+          style: normal
+    - family: OpenSans_Light
+      fonts:
+        - asset: fonts/OpenSans/OpenSans_Light.ttf
+          style: normal
+    - family: OpenSans_LightItalic
+      fonts:
+        - asset: fonts/OpenSans/OpenSans_LightItalic.ttf
+          style: normal
+    - family: OpenSans_Medium
+      fonts:
+        - asset: fonts/OpenSans/OpenSans_Medium.ttf
+          style: normal
+    - family: OpenSans_MediumItalic
+      fonts:
+        - asset: fonts/OpenSans/OpenSans_MediumItalic.ttf
+          style: normal
+    - family: OpenSans_Regular
+      fonts:
+        - asset: fonts/OpenSans/OpenSans_Regular.ttf
+          style: normal
+    - family: OpenSans_SemiBold
+      fonts:
+        - asset: fonts/OpenSans/OpenSans_SemiBold.ttf
+          style: normal
+    - family: OpenSans_SemiBoldItalic
+      fonts:
+        - asset: fonts/OpenSans/OpenSans_SemiBoldItalic.ttf
+          style: normal
+
+    # Icons
+    - family: app_icon
+      fonts:
+        - asset: fonts/icons/app_icon.ttf

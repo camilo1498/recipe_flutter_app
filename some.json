@@ -1,0 +1,41 @@
+{
+    "success": true,
+    "message": "post created",
+    "data": {
+        "name": "Bandeja Paisa",
+        "portions": "4",
+        "preparationTime": 88,
+        "steps": [
+            {
+                "title": "Prepara los fríjoles",
+                "description": "Calienta en una olla a presión una cucharada de aceite por 3 minutos a fuego medio; añade la cebolla, el tomate y el sobre de CALDO CON COSTILLA MAGGI® DESMENUZADO y revuelve para integrar bien, finalmente cocina por 2 minutos o hasta que el tomate suelte sus jugos.",
+                "_id": "6438294433a5fe39d0a104e8"
+            },
+            {
+                "title": "Agrega el agua",
+                "description": "Puntada final a los fríjoles",
+                "_id": "6438294433a5fe39d0a104e9"
+            }
+        ],
+        "videoUri": "https://www.youtube.com/watch?v=1n6bq4wfoSU&ab_channel=RositaCocina\n",
+        "type": "almuerzo",
+        "image": {
+            "path_folder": "recipe Images/Bandeja Paisa_2023-04-13T16:09:40.625Z",
+            "images": [
+                "http://res.cloudinary.com/da7fetv9i/image/upload/v1681402179/recipe%20Images/Bandeja%20Paisa_2023-04-13T16:09:38.251Z0/oonpd5ous8vvzgyzhdkh.jpg",
+                "http://res.cloudinary.com/da7fetv9i/image/upload/v1681402180/recipe%20Images/Bandeja%20Paisa_2023-04-13T16:09:39.707Z0/v3cnmg9s1gtkf6ottbz5.jpg"
+            ]
+        },
+        "commets": [],
+        "ingredients": [
+            "1 1/2 cucharadas de aceite (21 g)",
+            "2 tallos de cebolla larga finamente picada (30 g)"›
+        ],
+        "favourite_count": [],
+        "view_count": [],
+        "created_by": "6436bc052cf3db498325e091",
+        "createdAt": "2023-04-13T16:09:40.732Z",
+        "updatedAt": "2023-04-13T16:09:40.732Z",
+        "id": "6438294433a5fe39d0a104e7"
+    }
+}
