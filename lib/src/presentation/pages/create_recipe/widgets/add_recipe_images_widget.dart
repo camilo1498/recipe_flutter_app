@@ -45,34 +45,37 @@ class AddRecipeImagesWidget extends StatelessWidget {
 
                 /// pick images
                 Expanded(
-                  child: Row(
-                    children: [
-                      /// selected images
-                      if (ctrl.selectedImg.isNotEmpty)
-                        GalleryView(
-                          imageFileList: ctrl.selectedImg
-                              .map((e) => File(e.path))
-                              .toList(),
-                          imageUrlList: const [],
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        /// selected images
+                        if (ctrl.selectedImg.isNotEmpty)
+                          GalleryView(
+                            imageFileList: ctrl.selectedImg
+                                .map((e) => File(e.path))
+                                .toList(),
+                            imageUrlList: const [],
 
-                          /// here only use url nor file
-                          width: 130.w,
-                          height: 130.w,
-                          isNetworkImg: false,
-                          heroTag: 'create_comment_image',
-                        )
+                            /// here only use url nor file
+                            width: 130.w,
+                            height: 130.w,
+                            isNetworkImg: false,
+                            heroTag: 'create_comment_image',
+                          )
 
-                      /// empty selected images title
-                      else
-                        Center(
-                          child: TextWidget(
-                            'No se han seleccionado imagenes',
-                            font: AppFont.caption,
-                            color: AppColor.blackHardness50,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        )
-                    ],
+                        /// empty selected images title
+                        else
+                          Center(
+                            child: TextWidget(
+                              'No se han seleccionado imagenes',
+                              font: AppFont.caption,
+                              color: AppColor.blackHardness50,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          )
+                      ],
+                    ),
                   ),
                 ),
                 20.horizontalSpace,

@@ -107,7 +107,7 @@ class Favourite {
     required this.id,
   });
 
-  final FavouriteRecipeImage image;
+  final RecipeFavImage image;
   final String name;
   final int portions;
   final int preparationTime;
@@ -116,7 +116,7 @@ class Favourite {
   final String id;
 
   factory Favourite.fromJson(Map<String, dynamic> json) => Favourite(
-        image: FavouriteRecipeImage.fromJson(json["image"]),
+        image: RecipeFavImage.fromJson(json["image"]),
         name: json["name"],
         portions: json["portions"],
         preparationTime: json["preparationTime"],
@@ -131,13 +131,33 @@ class Favourite {
         "portions": portions,
         "preparationTime": preparationTime,
         "difficulty": difficulty.toJson(),
-        "type": type,
+        "type": type.toJson(),
         "id": id,
       };
 }
 
-class FavouriteRecipeImage {
-  FavouriteRecipeImage({
+class Difficulty {
+  Difficulty({
+    required this.name,
+    this.id,
+  });
+
+  final String name;
+  final String? id;
+
+  factory Difficulty.fromJson(Map<String, dynamic> json) => Difficulty(
+        name: json["name"],
+        id: json["id"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "name": name,
+        "id": id,
+      };
+}
+
+class RecipeFavImage {
+  RecipeFavImage({
     required this.pathFolder,
     required this.images,
   });
@@ -145,17 +165,7 @@ class FavouriteRecipeImage {
   final String pathFolder;
   final List<String> images;
 
-  FavouriteRecipeImage copyWith({
-    String? pathFolder,
-    List<String>? images,
-  }) =>
-      FavouriteRecipeImage(
-        pathFolder: pathFolder ?? this.pathFolder,
-        images: images ?? this.images,
-      );
-
-  factory FavouriteRecipeImage.fromJson(Map<String, dynamic> json) =>
-      FavouriteRecipeImage(
+  factory RecipeFavImage.fromJson(Map<String, dynamic> json) => RecipeFavImage(
         pathFolder: json["path_folder"],
         images: List<String>.from(json["images"].map((x) => x)),
       );
@@ -169,11 +179,11 @@ class FavouriteRecipeImage {
 class Type {
   Type({
     required this.name,
-    required this.id,
+    this.id,
   });
 
   final String name;
-  final String id;
+  final String? id;
 
   factory Type.fromJson(Map<String, dynamic> json) => Type(
         name: json["name"],
@@ -195,15 +205,6 @@ class Role {
   final String roleName;
   final String id;
 
-  Role copyWith({
-    String? roleName,
-    String? id,
-  }) =>
-      Role(
-        roleName: roleName ?? this.roleName,
-        id: id ?? this.id,
-      );
-
   factory Role.fromJson(Map<String, dynamic> json) => Role(
         roleName: json["roleName"],
         id: json["id"],
@@ -212,21 +213,5 @@ class Role {
   Map<String, dynamic> toJson() => {
         "roleName": roleName,
         "id": id,
-      };
-}
-
-class Difficulty {
-  Difficulty({
-    required this.name,
-  });
-
-  final String name;
-
-  factory Difficulty.fromJson(Map<String, dynamic> json) => Difficulty(
-        name: json["name"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "name": name,
       };
 }

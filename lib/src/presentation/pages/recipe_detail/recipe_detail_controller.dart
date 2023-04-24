@@ -148,7 +148,7 @@ class RecipeDetailController extends GetxController {
           commentList.clear();
         }
         commentList.addAll(localRes.data);
-        commentList.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+        commentList.sort((a, b) => b.date.compareTo(a.date));
       }
     }).whenComplete(() {
       loadingComment = false;

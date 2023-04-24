@@ -139,7 +139,7 @@ class CreateRecipePage extends StatelessWidget {
                                     children: [
                                       /// title
                                       TextWidget(
-                                        'Tiempo de cocción',
+                                        'Tiempo de preparación',
                                         font: AppFont.captionBold,
                                         color: AppColor.blackHardness,
                                       ),

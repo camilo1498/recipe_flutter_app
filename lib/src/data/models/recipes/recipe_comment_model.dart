@@ -59,8 +59,7 @@ class CommentModel {
     required this.recipe,
     required this.message,
     required this.image,
-    required this.createdAt,
-    required this.updatedAt,
+    required this.date,
     required this.datumId,
   });
 
@@ -69,8 +68,7 @@ class CommentModel {
   final String recipe;
   final String message;
   final Image image;
-  final DateTime createdAt;
-  final DateTime updatedAt;
+  final DateTime date;
   final String datumId;
 
   factory CommentModel.fromJson(Map<String, dynamic> json) => CommentModel(
@@ -79,8 +77,7 @@ class CommentModel {
         recipe: json["recipe"],
         message: json["message"],
         image: Image.fromJson(json["image"]),
-        createdAt: DateTime.parse(json["createdAt"]),
-        updatedAt: DateTime.parse(json["updatedAt"]),
+        date: DateTime.parse(json["date"]),
         datumId: json["id"],
       );
 
@@ -90,8 +87,7 @@ class CommentModel {
         "recipe": recipe,
         "message": message,
         "image": image.toJson(),
-        "createdAt": createdAt.toIso8601String(),
-        "updatedAt": updatedAt.toIso8601String(),
+        "date": date.toIso8601String(),
         "id": datumId,
       };
 }

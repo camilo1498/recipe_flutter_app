@@ -110,7 +110,6 @@ class DataGetService {
             'api/recipe/getAll?$data',
           );
       Map<String, dynamic> decodeResp = res.data;
-      print(decodeResp);
 
       /// validate response
       if (decodeResp['success'] == true) {

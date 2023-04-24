@@ -41,7 +41,6 @@ flutter:
 
   assets:
     - assets/images/
-    - assets/svg/
 
   fonts:
     - family: OpenSans_Bold

@@ -75,8 +75,12 @@ class DataPostService {
               contentType: MediaType('image', path.name.split('.')[1])))
           .toList();
 
-      FormData formData = FormData.fromMap(
-          {'recipe': recipeId, 'message': comment, 'image': files});
+      FormData formData = FormData.fromMap({
+        'recipe': recipeId,
+        'message': comment,
+        'image': files,
+        'date': DateTime.now()
+      });
 
       final Response res = await HttpService().dio.post(
             'api/recipe/create_comment',

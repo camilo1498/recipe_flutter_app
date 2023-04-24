@@ -102,7 +102,7 @@ class RecipeCommentsWidget extends StatelessWidget {
 
                                           /// published date
                                           TextWidget(
-                                            '${comment.createdAt.formatDate} ${comment.createdAt.formatHour}',
+                                            '${comment.date.formatDate} ${comment.date.formatHour}',
                                             font: AppFont.buttonLabelsm,
                                           ),
                                         ],
