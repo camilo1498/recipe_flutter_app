@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:receipt_app/src/core/global/global_controller.dart';
 import 'package:receipt_app/src/core/utils/app_utils.dart';
@@ -6,6 +6,7 @@ import 'package:receipt_app/src/data/models/user/user_model.dart';
 import 'package:receipt_app/src/data/source/http/data_put_service.dart';
 import 'package:receipt_app/src/data/source/local_storage/hive_service.dart';
 import 'package:receipt_app/src/presentation/pages/main/main_controller.dart';
+import 'package:receipt_app/src/presentation/pages/main/sub_pages/user_profile/sheets/change_pwd_sheet.dart';
 import 'package:receipt_app/src/presentation/routes/app_routes.dart';
 import 'package:receipt_app/src/presentation/widgets/dialogs/dialog_widget.dart';
 
@@ -15,6 +16,7 @@ class UserProfileController extends GetxController {
   final DataPutService _dataPutService = DataPutService();
 
   /// controller
+  final TextEditingController pswCtrl = TextEditingController();
   final TextEditingController nameCtrl = TextEditingController();
   final TextEditingController emailCtrl = TextEditingController();
   final TextEditingController lastnameCtrl = TextEditingController();
@@ -29,6 +31,7 @@ class UserProfileController extends GetxController {
   bool enableButton = false;
   bool showPassword = true;
   bool updateData = false;
+  bool hidePassword = true;
 
   @override
   void onInit() {
@@ -122,6 +125,44 @@ class UserProfileController extends GetxController {
         update(['profile_page']);
       });
     }
+  }
+
+  openPswSheet() {
+    Get.bottomSheet(const ChangePwdSheet(), backgroundColor: Colors.transparent)
+        .whenComplete(() {});
+  }
+
+  updatePassword() async {
+    if (pswCtrl.text.trim().isNotEmpty) {
+      Get.back();
+      MainController.inst.loading.value = true;
+      loading = true;
+      update(['profile_page']);
+
+      await _dataPutService
+          .updatePassword(password: pswCtrl.text.trim())
+          .then((res) async {
+        print(res);
+        if (res['success'] == true) {
+          // await logout();
+        } else {
+          AppUtils.snackBar(
+              title: 'Cambiar contraseña',
+              menssage: res['message'],
+              duration: 5);
+        }
+      }).whenComplete(() {
+        MainController.inst.loading.value = false;
+        loading = false;
+        update(['profile_page']);
+      });
+    }
+  }
+
+  /// Hacer visible la contraseña
+  onTapShowPassword() {
+    hidePassword = !hidePassword;
+    update(['hide']);
   }
 
   /// logout

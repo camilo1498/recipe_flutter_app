@@ -127,6 +127,19 @@ class LoginPage extends StatelessWidget {
                                     ),
                                   ),
                                 ),
+                                10.verticalSpace,
+
+                                /// forgotten password
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: AnimatedOnTapWidget(
+                                    onTap: ctrl.openRestorePswDialog,
+                                    child: TextWidget(
+                                      'Olvidé mi contraseña',
+                                      font: AppFont.captionBold,
+                                    ),
+                                  ),
+                                )
                               ],
                             ),
                           ),

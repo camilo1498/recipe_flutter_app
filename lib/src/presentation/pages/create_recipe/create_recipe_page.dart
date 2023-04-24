@@ -293,7 +293,7 @@ class CreateRecipePage extends StatelessWidget {
 
                             /// title
                             TextWidget(
-                              'Categoria de la receta',
+                              'Horario',
                               font: AppFont.captionBold,
                               color: AppColor.blackHardness,
                             ),

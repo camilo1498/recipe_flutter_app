@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:receipt_app/src/core/utils/app_utils.dart';
 import 'package:receipt_app/src/data/source/http/data_get_service.dart';
+import 'package:receipt_app/src/data/source/http/data_post_service.dart';
 import 'package:receipt_app/src/data/source/local_storage/hive_service.dart';
+import 'package:receipt_app/src/presentation/pages/login/sheets/change_pwd_sheet.dart';
 import 'package:receipt_app/src/presentation/routes/app_routes.dart';
 import 'package:receipt_app/src/presentation/widgets/dialogs/dialog_widget.dart';
 
@@ -10,11 +13,13 @@ class LoginController extends GetxController {
 
   /// instances
   final DataGetService _dataGetService = DataGetService();
+  final DataPostService _dataPostService = DataPostService();
   final HiveService _hiveService = HiveService();
 
   /// controller
   final emailCtrl = TextEditingController();
   final passwordCtrl = TextEditingController();
+  final restoreCtrl = TextEditingController();
 
   /// Variables
   final emailNode = FocusNode();
@@ -102,6 +107,38 @@ class LoginController extends GetxController {
         description: 'Debes llenar todos los campos',
         onTapAccept: () => Get.back(),
       );
+    }
+  }
+
+  /// open send restore password
+  openRestorePswDialog() {
+    Get.bottomSheet(const SendPswEmailSheet()).whenComplete(() {});
+  }
+
+  updatePassword() async {
+    if (restoreCtrl.text.trim().isNotEmpty) {
+      Get.back();
+      loading = true;
+      update(['loading']);
+
+      await _dataPostService
+          .updateFromEmail(email: restoreCtrl.text.trim())
+          .then((res) async {
+        if (res['success'] == true) {
+          DialogWidget.show(
+              title: 'Recuperar contraseña',
+              description: res['message'],
+              onTapAccept: () => Get.back());
+        } else {
+          AppUtils.snackBar(
+              title: 'Cambiar contraseña',
+              menssage: res['message'],
+              duration: 5);
+        }
+      }).whenComplete(() {
+        loading = false;
+        update(['loading']);
+      });
     }
   }
 

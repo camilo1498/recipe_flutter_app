@@ -156,4 +156,36 @@ class DataPostService {
       };
     }
   }
+
+  Future<Map<String, dynamic>> updateFromEmail({required String email}) async {
+    try {
+      /// validate if device has internet connection
+      if (!await AppUtils.isInternet()) throw 'internet';
+
+      /// Http query
+      final Response res = await HttpService()
+          .dio
+          .post('api/user/restore_password', data: {"email": email});
+      Map<String, dynamic> decodeResp = res.data;
+
+      if (decodeResp['success'] == true) {
+        /// success response
+
+        return {'success': true, 'message': decodeResp['message'], 'data': {}};
+      } else {
+        /// error response
+        return {'success': false, 'message': decodeResp['message'], 'data': {}};
+      }
+    } catch (e) {
+      if (e.toString() != 'internet') {
+        debugPrint(e.toString());
+      }
+
+      return {
+        'success': false,
+        'message': 'Estamos teniendo algunos problemas',
+        'data': {}
+      };
+    }
+  }
 }

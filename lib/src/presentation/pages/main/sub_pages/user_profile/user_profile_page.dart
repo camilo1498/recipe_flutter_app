@@ -6,6 +6,7 @@ import 'package:receipt_app/src/core/global/app_colors_global.dart';
 import 'package:receipt_app/src/core/global/global_app_font.dart';
 import 'package:receipt_app/src/core/utils/app_utils.dart';
 import 'package:receipt_app/src/presentation/pages/main/sub_pages/user_profile/userProfileController.dart';
+import 'package:receipt_app/src/presentation/widgets/animations/animated_onTap_widget.dart';
 import 'package:receipt_app/src/presentation/widgets/buttons/button_widget.dart';
 import 'package:receipt_app/src/presentation/widgets/decoration/textfield_decoration.dart';
 import 'package:receipt_app/src/presentation/widgets/text/text_widget.dart';
@@ -119,6 +120,31 @@ class UserProfilePage extends StatelessWidget {
                                 validator: (str) => ctrl.validateForm(str: str),
                               ),
                             ),
+                            30.verticalSpace,
+
+                            /// title
+                            TextWidget(
+                              'Contraseña',
+                              font: AppFont.captionBold,
+                            ),
+                            10.verticalSpace,
+
+                            /// password field
+                            AnimatedOnTapWidget(
+                              onTap: ctrl.openPswSheet,
+                              child: TextFieldDecoration(
+                                  child: Container(
+                                height: 100.h,
+                                width: context.maxWidth,
+                                alignment: Alignment.centerLeft,
+                                child: TextWidget(
+                                  'Cambiar contraseña',
+                                  font: AppFont.body,
+                                  color: AppColor.blackHardness50,
+                                ),
+                              )),
+                            ),
+
                             30.verticalSpace,
                           ],
                         ),
