@@ -137,6 +137,7 @@ class LoginController extends GetxController {
         }
       }).whenComplete(() {
         loading = false;
+        restoreCtrl.clear();
         update(['loading']);
       });
     }
