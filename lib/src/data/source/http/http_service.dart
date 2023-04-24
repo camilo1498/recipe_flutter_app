@@ -1,7 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
 import 'dart:developer' as developer;
-import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:receipt_app/src/data/source/local_storage/hive_service.dart';
@@ -22,10 +21,10 @@ class HttpService {
     /// configure http
     dio = Dio(
       BaseOptions(
-          baseUrl: Platform.isIOS
-              ? 'http://localhost:3001/'
-              : 'http://172.28.60.23:3001/',
-          //  baseUrl: 'https://recipebackend-production.up.railway.app/',
+          //baseUrl: Platform.isIOS
+          // ? 'http://localhost:3001/'
+          // : 'http://172.28.60.23:3001/',
+          baseUrl: 'https://recipebackend-production.up.railway.app/',
           connectTimeout: 30 * 1000,
           receiveTimeout: 30 * 1000,
           headers: headers),
