@@ -259,6 +259,40 @@ class CreateRecipePage extends StatelessWidget {
 
                             /// title
                             TextWidget(
+                              'Categoria',
+                              font: AppFont.captionBold,
+                              color: AppColor.blackHardness,
+                            ),
+                            10.verticalSpace,
+
+                            /// Tags
+                            GetBuilder<CreateRecipeController>(
+                              id: 'recipe_tags',
+                              builder: (ctrl) => SingleChildScrollView(
+                                physics: const BouncingScrollPhysics(),
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  children: [
+                                    ...ctrl.listOfTags.map((filter) {
+                                      final int index =
+                                          ctrl.listOfTags.indexOf(filter);
+                                      return RecipeFilterCardWidget(
+                                          onSelected: ctrl.onTapTagFilter,
+                                          name: filter.name,
+                                          index: index,
+                                          selectedIndex: ctrl.selectedTagsIndex
+                                                  .firstWhereOrNull((element) =>
+                                                      element == index) ??
+                                              -1);
+                                    })
+                                  ],
+                                ),
+                              ),
+                            ),
+                            30.verticalSpace,
+
+                            /// title
+                            TextWidget(
                               'Categoria de la receta',
                               font: AppFont.captionBold,
                               color: AppColor.blackHardness,

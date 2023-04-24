@@ -111,6 +111,7 @@ class DataPostService {
     required String type,
     required List<String> ingredients,
     required List<Map<String, dynamic>> steps,
+    required List<String> tagListId,
   }) async {
     try {
       /// validate if device has internet connection
@@ -131,7 +132,8 @@ class DataPostService {
         'videoUri': videoUri,
         'type': type,
         'ingredients': ingredients,
-        'steps': steps
+        'steps': steps,
+        'tags': tagListId
       });
 
       final Response res =

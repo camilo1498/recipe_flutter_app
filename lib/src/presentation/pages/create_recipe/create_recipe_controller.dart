@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:receipt_app/src/core/utils/app_utils.dart';
 import 'package:receipt_app/src/data/models/recipes/recipe_difficulty_model.dart';
+import 'package:receipt_app/src/data/models/recipes/recipe_tag_model.dart';
 import 'package:receipt_app/src/data/models/recipes/recipe_type_model.dart';
 import 'package:receipt_app/src/data/source/http/data_get_service.dart';
 import 'package:receipt_app/src/data/source/http/data_post_service.dart';
@@ -23,9 +24,12 @@ class CreateRecipeController extends GetxController {
   List<RecipeTypeModel> recipeCategoryList = [];
   List<RecipeDifficultyModel> recipeDifficultyList = [];
   List<String> listOfIngredients = [];
+  List<RecipeTagModel> listOfTags = [];
   List<Map<String, dynamic>> listOfSteps = [];
+  List<int> selectedTagsIndex = [];
   bool loadingCategories = true;
   bool loadingDifficulty = true;
+  bool loadingTags = true;
   bool loadingPage = false;
   bool invalidUrl = true;
   int selectedCategoryIndex = -1;
@@ -43,6 +47,7 @@ class CreateRecipeController extends GetxController {
   @override
   void onInit() async {
     await getRecipeCategory();
+    await getRecipeTags();
     await getRecipeDifficulty();
     super.onInit();
   }
@@ -94,6 +99,20 @@ class CreateRecipeController extends GetxController {
     });
   }
 
+  /// get all recipe tags
+  getRecipeTags() async {
+    await _dataGetService.getRecipeTags().then((res) {
+      if (res['success'] == true) {
+        listOfTags = res['data'];
+        update(['recipe_tags']);
+      }
+    }).whenComplete(() {
+      /// close loading
+      loadingTags = false;
+      update(['recipe_tags']);
+    });
+  }
+
   /// create recipe
   createRecipe() async {
     /// validate if all fields are not empty
@@ -105,9 +124,14 @@ class CreateRecipeController extends GetxController {
         selectedCategoryId != null &&
         selectedDifficultyId != null &&
         listOfIngredients.isNotEmpty &&
-        listOfSteps.isNotEmpty) {
+        listOfSteps.isNotEmpty &&
+        selectedTagsIndex.isNotEmpty) {
       loadingPage = true;
       update(['loading']);
+      List<String> selectedTags = [];
+      for (var i in selectedTagsIndex) {
+        selectedTags.add(listOfTags[i].id);
+      }
 
       /// post query
       await _dataPostService
@@ -120,6 +144,7 @@ class CreateRecipeController extends GetxController {
               videoUri: recipeUrlCtrl.text.trim(),
               type: selectedCategoryId ?? '',
               ingredients: listOfIngredients,
+              tagListId: selectedTags,
               steps: listOfSteps)
           .then((res) async {
         /// fetch all recipes
@@ -175,6 +200,16 @@ class CreateRecipeController extends GetxController {
       selectedDifficultyId = null;
     }
     update(['recipes_difficulty']);
+  }
+
+  ///tags
+  onTapTagFilter(int index) async {
+    if (selectedTagsIndex.contains(index)) {
+      selectedTagsIndex.removeWhere((item) => item == index);
+    } else {
+      selectedTagsIndex.add(index);
+    }
+    update(['recipe_tags']);
   }
 
   ///* List Methods *///

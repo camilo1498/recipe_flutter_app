@@ -5,6 +5,7 @@ import 'package:receipt_app/src/core/utils/app_utils.dart';
 import 'package:receipt_app/src/data/models/recipes/recipe_comment_model.dart';
 import 'package:receipt_app/src/data/models/recipes/recipe_difficulty_model.dart';
 import 'package:receipt_app/src/data/models/recipes/recipe_model.dart';
+import 'package:receipt_app/src/data/models/recipes/recipe_tag_model.dart';
 import 'package:receipt_app/src/data/models/recipes/recipe_type_model.dart';
 import 'package:receipt_app/src/data/models/user/user_model.dart';
 import 'package:receipt_app/src/data/source/http/http_service.dart';
@@ -94,21 +95,23 @@ class DataGetService {
 
   /// fetch all recipes
   Future<Map<String, dynamic>> getAllRecipes(
-      {String name = "", String? type}) async {
+      {String name = "", String? type, required List<String> tags}) async {
     try {
       /// validate if device has internet connection
       if (!await AppUtils.isInternet()) throw 'internet';
 
-      String data = 'name=$name';
+      Map<String, dynamic> data = {'name': name};
 
       if (type != null) {
-        data = 'name=$name&type=$type';
+        data = {'name': name, 'type': type};
+      }
+      if (tags.isNotEmpty) {
+        data = {'name': name, 'type': type, 'tags': tags};
       }
 
       /// fetch
-      final Response res = await HttpService().dio.get(
-            'api/recipe/getAll?$data',
-          );
+      final Response res =
+          await HttpService().dio.post('api/recipe/getAll', data: data);
       Map<String, dynamic> decodeResp = res.data;
 
       /// validate response
@@ -261,6 +264,39 @@ class DataGetService {
       return {
         'success': false,
         'message': 'Error al obtener la dificultad',
+        'data': {}
+      };
+    }
+  }
+
+  /// fetch all tag type
+  Future<Map<String, dynamic>> getRecipeTags() async {
+    try {
+      /// validate if device has internet connection
+      if (!await AppUtils.isInternet()) throw 'internet';
+
+      /// fetch
+      final Response res = await HttpService().dio.get('api/recipe/getAllTag');
+      Map<String, dynamic> decodeResp = res.data;
+
+      /// validate response
+      if (decodeResp['success'] == true) {
+        return {
+          'success': true,
+          'message': decodeResp['message'],
+          'data': RecipeTagResponseModel.fromJson(decodeResp).data
+        };
+      } else {
+        debugPrint(decodeResp.toString());
+        return {'success': false, 'message': decodeResp['message'], 'data': {}};
+      }
+    } catch (e) {
+      if (e.toString() != 'internet') {
+        debugPrint(e.toString());
+      }
+      return {
+        'success': false,
+        'message': 'Error al obtener las etiquetas',
         'data': {}
       };
     }

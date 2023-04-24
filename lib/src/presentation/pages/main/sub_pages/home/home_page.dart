@@ -82,6 +82,31 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                 ),
+                20.verticalSpace,
+
+                /// Tags
+                GetBuilder<HomeController>(
+                  id: 'recipe_tags',
+                  builder: (ctrl) => SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        ...ctrl.listOfTags.map((filter) {
+                          final int index = ctrl.listOfTags.indexOf(filter);
+                          return RecipeFilterCardWidget(
+                              onSelected: ctrl.onTapTagFilter,
+                              name: filter.name,
+                              index: index,
+                              selectedIndex: ctrl.selectedTagsIndex
+                                      .firstWhereOrNull(
+                                          (element) => element == index) ??
+                                  -1);
+                        })
+                      ],
+                    ),
+                  ),
+                ),
                 30.verticalSpace,
 
                 /// recipe list item
